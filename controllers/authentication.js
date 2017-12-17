@@ -12,6 +12,13 @@ function tokenForUser(user){
   // the token can be decoded using the secret and then we get back the user id and timestamp
 }
 
+// user already signed in, we just need to give them a token
+exports.signin = function(req, res, next){
+  // since this request has passed through LocalStrategy
+  // it will receive the user (inside req) which was sent via done() function in passport.js
+  res.send({token: tokenForUser(req.user)});
+}
+
 exports.signup = function(req, res, next){
   const email = req.body.email;
   const password = req.body.password;
